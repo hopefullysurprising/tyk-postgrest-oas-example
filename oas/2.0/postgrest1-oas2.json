@@ -1,0 +1,369 @@
+{
+  "basePath": "/data",
+  "consumes": [
+    "application/json",
+    "application/vnd.pgrst.object+json;nulls=stripped",
+    "application/vnd.pgrst.object+json",
+    "text/csv"
+  ],
+  "definitions": {
+    "orders": {
+      "properties": {
+        "createdAt": {
+          "default": "CURRENT_TIMESTAMP",
+          "format": "timestamp with time zone",
+          "type": "string"
+        },
+        "id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "integer",
+          "type": "integer"
+        },
+        "orderNumber": {
+          "format": "character varying",
+          "type": "string"
+        },
+        "status": {
+          "format": "character varying",
+          "type": "string"
+        },
+        "updatedAt": {
+          "format": "timestamp with time zone",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "orderNumber",
+        "status",
+        "updatedAt",
+        "createdAt"
+      ],
+      "type": "object"
+    }
+  },
+  "externalDocs": {
+    "description": "PostgREST Documentation",
+    "url": "https://postgrest.org/en/v12.0/api.html"
+  },
+  "host": "localhost:8080",
+  "info": {
+    "description": "",
+    "title": "standard public schema",
+    "version": "12.0.2 (a4e00ff)"
+  },
+  "parameters": {
+    "body.orders": {
+      "description": "orders",
+      "in": "body",
+      "name": "orders",
+      "required": false,
+      "schema": {
+        "$ref": "#/definitions/orders"
+      }
+    },
+    "limit": {
+      "description": "Limiting and Pagination",
+      "in": "query",
+      "name": "limit",
+      "required": false,
+      "type": "string"
+    },
+    "offset": {
+      "description": "Limiting and Pagination",
+      "in": "query",
+      "name": "offset",
+      "required": false,
+      "type": "string"
+    },
+    "on_conflict": {
+      "description": "On Conflict",
+      "in": "query",
+      "name": "on_conflict",
+      "required": false,
+      "type": "string"
+    },
+    "order": {
+      "description": "Ordering",
+      "in": "query",
+      "name": "order",
+      "required": false,
+      "type": "string"
+    },
+    "preferCount": {
+      "description": "Preference",
+      "enum": [
+        "count=none"
+      ],
+      "in": "header",
+      "name": "Prefer",
+      "required": false,
+      "type": "string"
+    },
+    "preferParams": {
+      "description": "Preference",
+      "enum": [
+        "params=single-object"
+      ],
+      "in": "header",
+      "name": "Prefer",
+      "required": false,
+      "type": "string"
+    },
+    "preferPost": {
+      "description": "Preference",
+      "enum": [
+        "return=representation",
+        "return=minimal",
+        "return=none",
+        "resolution=ignore-duplicates",
+        "resolution=merge-duplicates"
+      ],
+      "in": "header",
+      "name": "Prefer",
+      "required": false,
+      "type": "string"
+    },
+    "preferReturn": {
+      "description": "Preference",
+      "enum": [
+        "return=representation",
+        "return=minimal",
+        "return=none"
+      ],
+      "in": "header",
+      "name": "Prefer",
+      "required": false,
+      "type": "string"
+    },
+    "range": {
+      "description": "Limiting and Pagination",
+      "in": "header",
+      "name": "Range",
+      "required": false,
+      "type": "string"
+    },
+    "rangeUnit": {
+      "default": "items",
+      "description": "Limiting and Pagination",
+      "in": "header",
+      "name": "Range-Unit",
+      "required": false,
+      "type": "string"
+    },
+    "rowFilter.orders.createdAt": {
+      "format": "timestamp with time zone",
+      "in": "query",
+      "name": "createdAt",
+      "required": false,
+      "type": "string"
+    },
+    "rowFilter.orders.id": {
+      "format": "integer",
+      "in": "query",
+      "name": "id",
+      "required": false,
+      "type": "string"
+    },
+    "rowFilter.orders.orderNumber": {
+      "format": "character varying",
+      "in": "query",
+      "name": "orderNumber",
+      "required": false,
+      "type": "string"
+    },
+    "rowFilter.orders.status": {
+      "format": "character varying",
+      "in": "query",
+      "name": "status",
+      "required": false,
+      "type": "string"
+    },
+    "rowFilter.orders.updatedAt": {
+      "format": "timestamp with time zone",
+      "in": "query",
+      "name": "updatedAt",
+      "required": false,
+      "type": "string"
+    },
+    "select": {
+      "description": "Filtering Columns",
+      "in": "query",
+      "name": "select",
+      "required": false,
+      "type": "string"
+    }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "produces": [
+          "application/openapi+json",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "summary": "OpenAPI description (this document)",
+        "tags": [
+          "Introspection"
+        ]
+      }
+    },
+    "/orders": {
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.orders.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.orders.orderNumber"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.orders.status"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.orders.updatedAt"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.orders.createdAt"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "orders"
+        ]
+      },
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.orders.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.orders.orderNumber"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.orders.status"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.orders.updatedAt"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.orders.createdAt"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/orders"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "orders"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.orders.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.orders.orderNumber"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.orders.status"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.orders.updatedAt"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.orders.createdAt"
+          },
+          {
+            "$ref": "#/parameters/body.orders"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "orders"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.orders"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "orders"
+        ]
+      }
+    }
+  },
+  "produces": [
+    "application/json",
+    "application/vnd.pgrst.object+json;nulls=stripped",
+    "application/vnd.pgrst.object+json",
+    "text/csv"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0"
+}
