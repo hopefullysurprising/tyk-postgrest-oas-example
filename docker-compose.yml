@@ -6,6 +6,21 @@ services:
   # API
   ##################
 
+  # API Gateway that serves all the endpoints of all API servers
+  api-gateway:
+    image: docker.tyk.io/tyk-gateway/tyk-gateway:v5.1.0
+    ports:
+      - "8888:8080"
+    volumes:
+      - ./tyk/tyk.standalone.conf:/opt/tyk-gateway/tyk.conf
+      - ./tyk/apps:/opt/tyk-gateway/apps
+    environment:
+      - TYK_GW_SECRET=gatewaysecret
+      - TYK_SECRET_POSTGREST1ROOT=http://postgrest1:3000
+      - TYK_SECRET_POSTGREST2ROOT=http://postgrest2:3000
+    depends_on:
+      - redis
+
   postgrest1:
     image: postgrest/postgrest:v12.0.2
     ports:
@@ -63,3 +78,9 @@ services:
       - POSTGRES_PASSWORD=admin
     volumes:
       - ./postgres2/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+  
+  # Redis database (for storing temporary records)
+  redis:
+    image: redis:6.2.7-alpine
+    ports:
+      - "6380:6379"

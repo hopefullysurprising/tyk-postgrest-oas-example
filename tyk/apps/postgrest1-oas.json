@@ -1,0 +1,641 @@
+{
+  "x-tyk-api-gateway": {
+    "info": {
+      "id": "postgrest1",
+      "name": "PostgREST API node 1",
+      "state": {
+        "active": true
+      }
+    },
+    "upstream": {
+      "url": "env://postgrest1root"
+    },
+    "server": {
+      "listenPath": {
+        "value": "/transactions",
+        "strip": true
+      }
+    }
+  },
+  "openapi": "3.0.1",
+  "info": {
+    "title": "standard public schema",
+    "description": "",
+    "version": "12.0.2 (a4e00ff)"
+  },
+  "externalDocs": {
+    "description": "PostgREST Documentation",
+    "url": "https://postgrest.org/en/v12.0/api.html"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/data"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Introspection"
+        ],
+        "summary": "OpenAPI description (this document)",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "tags": [
+          "orders"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "integer"
+            }
+          },
+          {
+            "name": "orderNumber",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "character varying"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "character varying"
+            }
+          },
+          {
+            "name": "updatedAt",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "timestamp with time zone"
+            }
+          },
+          {
+            "name": "createdAt",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "timestamp with time zone"
+            }
+          },
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Filtering Columns",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Ordering",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Range",
+            "in": "header",
+            "description": "Limiting and Pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Range-Unit",
+            "in": "header",
+            "description": "Limiting and Pagination",
+            "schema": {
+              "type": "string",
+              "default": "items"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Limiting and Pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limiting and Pagination",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Prefer",
+            "in": "header",
+            "description": "Preference",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "count=none"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/orders"
+                  }
+                }
+              },
+              "application/vnd.pgrst.object+json;nulls=stripped": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/orders"
+                  }
+                }
+              },
+              "application/vnd.pgrst.object+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/orders"
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/orders"
+                  }
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Partial Content",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "orders"
+        ],
+        "parameters": [
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Filtering Columns",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Prefer",
+            "in": "header",
+            "description": "Preference",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "return=representation",
+                "return=minimal",
+                "return=none",
+                "resolution=ignore-duplicates",
+                "resolution=merge-duplicates"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "orders",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/orders"
+              }
+            },
+            "application/vnd.pgrst.object+json;nulls=stripped": {
+              "schema": {
+                "$ref": "#/components/schemas/orders"
+              }
+            },
+            "application/vnd.pgrst.object+json": {
+              "schema": {
+                "$ref": "#/components/schemas/orders"
+              }
+            },
+            "text/csv": {
+              "schema": {
+                "$ref": "#/components/schemas/orders"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "orders"
+      },
+      "delete": {
+        "tags": [
+          "orders"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "integer"
+            }
+          },
+          {
+            "name": "orderNumber",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "character varying"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "character varying"
+            }
+          },
+          {
+            "name": "updatedAt",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "timestamp with time zone"
+            }
+          },
+          {
+            "name": "createdAt",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "timestamp with time zone"
+            }
+          },
+          {
+            "name": "Prefer",
+            "in": "header",
+            "description": "Preference",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "return=representation",
+                "return=minimal",
+                "return=none"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "orders"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "integer"
+            }
+          },
+          {
+            "name": "orderNumber",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "character varying"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "character varying"
+            }
+          },
+          {
+            "name": "updatedAt",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "timestamp with time zone"
+            }
+          },
+          {
+            "name": "createdAt",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "timestamp with time zone"
+            }
+          },
+          {
+            "name": "Prefer",
+            "in": "header",
+            "description": "Preference",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "return=representation",
+                "return=minimal",
+                "return=none"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "orders",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/orders"
+              }
+            },
+            "application/vnd.pgrst.object+json;nulls=stripped": {
+              "schema": {
+                "$ref": "#/components/schemas/orders"
+              }
+            },
+            "application/vnd.pgrst.object+json": {
+              "schema": {
+                "$ref": "#/components/schemas/orders"
+              }
+            },
+            "text/csv": {
+              "schema": {
+                "$ref": "#/components/schemas/orders"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "orders"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "orders": {
+        "required": [
+          "createdAt",
+          "id",
+          "orderNumber",
+          "status",
+          "updatedAt"
+        ],
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "timestamp with time zone",
+            "default": "CURRENT_TIMESTAMP"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Note:\nThis is a Primary Key.<pk/>",
+            "format": "integer"
+          },
+          "orderNumber": {
+            "type": "string",
+            "format": "character varying"
+          },
+          "status": {
+            "type": "string",
+            "format": "character varying"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "timestamp with time zone"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "limit": {
+        "name": "limit",
+        "in": "query",
+        "description": "Limiting and Pagination",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "offset": {
+        "name": "offset",
+        "in": "query",
+        "description": "Limiting and Pagination",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "on_conflict": {
+        "name": "on_conflict",
+        "in": "query",
+        "description": "On Conflict",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "order": {
+        "name": "order",
+        "in": "query",
+        "description": "Ordering",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "preferCount": {
+        "name": "Prefer",
+        "in": "header",
+        "description": "Preference",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "count=none"
+          ]
+        }
+      },
+      "preferParams": {
+        "name": "Prefer",
+        "in": "header",
+        "description": "Preference",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "params=single-object"
+          ]
+        }
+      },
+      "preferPost": {
+        "name": "Prefer",
+        "in": "header",
+        "description": "Preference",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "return=representation",
+            "return=minimal",
+            "return=none",
+            "resolution=ignore-duplicates",
+            "resolution=merge-duplicates"
+          ]
+        }
+      },
+      "preferReturn": {
+        "name": "Prefer",
+        "in": "header",
+        "description": "Preference",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "return=representation",
+            "return=minimal",
+            "return=none"
+          ]
+        }
+      },
+      "range": {
+        "name": "Range",
+        "in": "header",
+        "description": "Limiting and Pagination",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "rangeUnit": {
+        "name": "Range-Unit",
+        "in": "header",
+        "description": "Limiting and Pagination",
+        "schema": {
+          "type": "string",
+          "default": "items"
+        }
+      },
+      "rowFilter.orders.createdAt": {
+        "name": "createdAt",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "timestamp with time zone"
+        }
+      },
+      "rowFilter.orders.id": {
+        "name": "id",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "integer"
+        }
+      },
+      "rowFilter.orders.orderNumber": {
+        "name": "orderNumber",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "character varying"
+        }
+      },
+      "rowFilter.orders.status": {
+        "name": "status",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "character varying"
+        }
+      },
+      "rowFilter.orders.updatedAt": {
+        "name": "updatedAt",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "format": "timestamp with time zone"
+        }
+      },
+      "select": {
+        "name": "select",
+        "in": "query",
+        "description": "Filtering Columns",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "requestBodies": {
+      "body.orders": {
+        "description": "orders",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/orders"
+            }
+          },
+          "application/vnd.pgrst.object+json;nulls=stripped": {
+            "schema": {
+              "$ref": "#/components/schemas/orders"
+            }
+          },
+          "application/vnd.pgrst.object+json": {
+            "schema": {
+              "$ref": "#/components/schemas/orders"
+            }
+          },
+          "text/csv": {
+            "schema": {
+              "$ref": "#/components/schemas/orders"
+            }
+          }
+        },
+        "required": false
+      }
+    }
+  },
+  "x-original-swagger-version": "2.0"
+}

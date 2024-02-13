@@ -22,6 +22,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
         PRIMARY KEY ("id")
     );
 
+    GRANT SELECT, INSERT, UPDATE, DELETE ON PUBLIC.companies to web_anon;
+
     INSERT INTO "public"."companies" ("id", "updatedAt", "createdAt", "name") VALUES
         (1, '2024-02-11 16:59:11.327297+00', '2024-02-11 16:59:11.327297+00', 'Company A'),
         (2, '2024-02-11 16:59:11.327297+00', '2024-02-11 16:59:11.327297+00', 'Company B');
